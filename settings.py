@@ -1,27 +1,50 @@
-"""Default settings for the application.
-
-"""
 import os
 
-SERVER_SOFTWARE = os.environ['SERVER_SOFTWARE'].split('/')[0]
-if SERVER_SOFTWARE == 'Development':
-    DEBUG = True
-else:
-    DEBUG = False
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-THUMB_SIZES = [32, 48, 64, 72, 75, 104, 144, 150, 160]
-THUMB_SIZE_DEFAULT = 72
-THUMB_CROPPED_DEFAULT = True
+###############################################################################
+## Import our defaults (globals)
+from conf.default import *
 
-FULL_SIZES = [94, 110, 128, 200, 220, 288, 320, 400, 512, 576, 640, 720, 800, 912, 1024, 1152, 1280, 1440, 1600]
-FULL_SIZE_DEFAULT = 576
+###############################################################################
+## Environment specific settings
+DJANGO_CONF = os.environ.get('DJANGO_CONF', 'default')
+if DJANGO_CONF != 'default':
+    module = __import__(DJANGO_CONF, globals(), local(), ['*'])
+    for k in dir(module):
+        locals()[k] = getattr(module, k)
 
-HOMEPAGE_SIZE_DEFAULT = 800
+###############################################################################
+## Import local settings
+try:
+    from local_settings import *
+except ImportError, e:
+    import sys
+    import traceback
+    sys.stderr.write("Warning: Can't find the file 'local_settings.py' in the "
+            "directory containing %r. It appears you've customized things.\n"
+            "You'll have to run django-admin.py, passing it your settings "
+            "module.\n(If the file settings.py indeed exist, it's causing an "
+            "ImportError somehow.)\n" % __file__)
+    sys.stderr.write("\nFor debugging purposes, the exception was:\n\n")
+    traceback.print_exc()
 
-MEMCACHE_ENABLED = True
-MEMCACHE_EXPIRATION = 3600 # 1 hour cache
-MEMCACHE_PHOTO_EXPIRATION = MEMCACHE_EXPIRATION * 48 # 48 hour photo cache
+###############################################################################
+## Remove any disabled apps
+if 'DISABLED_APPS' in locals():
+    INSTALLED_APPS = [k for k in INSTALLED_APPS if k not in DISABLED_APPS]
 
-PHOTO_BACKEND_PICASA = 1
-PHOTO_BACKEND_FLICKR = 2
-PHOTO_BACKENDS = [PHOTO_BACKEND_PICASA,  ]
+    MIDDLEWARE_CLASSES = list(MIDDLEWARE_CLASSES)
+    TEMPLATE_CONTEXT_PROCESSORS = list(TEMPLATE_CONTEXT_PROCESSORS)
+
+    for a in DISABLED_APPS:
+        for x, m in enumerate(MIDDLEWARE_CLASSES):
+            if m.startswith(a):
+                MIDDLEWARE_CLASSES.pop(x)
+
+        for x, m in enumerate(TEMPLATE_CONTEXT_PROCESSORS):
+            if m.startswith(a):
+                TEMPLATE_CONTEXT_PROCESSORS.pop(x)
+
+###############################################################################
+## All done
