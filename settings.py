@@ -13,6 +13,11 @@ if os.environ.get('SERVER_SOFTWARE', '').startswith('Dev'):
 else:
     from conf.default import *
 
+
+###############################################################################
+## URL Configuration
+ROOT_URLCONF = 'urls'
+
 ###############################################################################
 ## Environment specific settings
 DJANGO_CONF = os.environ.get('DJANGO_CONF', 'default')

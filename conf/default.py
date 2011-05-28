@@ -64,19 +64,19 @@ INTERNAL_IPS = (
 
 ###############################################################################
 ## Database Settings
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gallery',
-        'USER': 'gallery',
-        'PASSWORD': 'gobears',
-        'HOST': 'db',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': 'SET storage_engine=INNODB',
-        }
-    },
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'gallery',
+#        'USER': 'gallery',
+#        'PASSWORD': 'gobears',
+#        'HOST': 'db',
+#        'PORT': '3306',
+#        'OPTIONS': {
+#            'init_command': 'SET storage_engine=INNODB',
+#        }
+#    },
+#}
 
 ###############################################################################
 
@@ -141,10 +141,6 @@ SESSION_COOKIE_SECURE = False   # Change to True for HTTPS only cookies
 #MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 # Use cookies and fall back to sessions when the message is too big.
 MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
-
-###############################################################################
-## URL Configuration
-ROOT_URLCONF = 'gallery.urls'
 
 ###############################################################################
 ## Template Settings
