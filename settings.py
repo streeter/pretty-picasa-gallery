@@ -8,7 +8,10 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 ###############################################################################
 ## Import our defaults (globals)
-from conf.default import *
+if os.environ.get('SERVER_SOFTWARE', '').startswith('Dev'):
+    from conf.dev import *
+else:
+    from conf.default import *
 
 ###############################################################################
 ## Environment specific settings
@@ -17,21 +20,6 @@ if DJANGO_CONF != 'default':
     module = __import__(DJANGO_CONF, globals(), local(), ['*'])
     for k in dir(module):
         locals()[k] = getattr(module, k)
-
-###############################################################################
-## Import local settings
-try:
-    from local_settings import *
-except ImportError, e:
-    import sys
-    import traceback
-    sys.stderr.write("Warning: Can't find the file 'local_settings.py' in the "
-            "directory containing %r. It appears you've customized things.\n"
-            "You'll have to run django-admin.py, passing it your settings "
-            "module.\n(If the file settings.py indeed exist, it's causing an "
-            "ImportError somehow.)\n" % __file__)
-    sys.stderr.write("\nFor debugging purposes, the exception was:\n\n")
-    traceback.print_exc()
 
 ###############################################################################
 ## Remove any disabled apps
