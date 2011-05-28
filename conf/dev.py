@@ -30,7 +30,6 @@ else:
         'debug_toolbar.panels.headers.HeaderDebugPanel',
         'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
         'debug_toolbar.panels.template.TemplateDebugPanel',
-        'debug_toolbar.panels.sql.SQLDebugPanel',
         'debug_toolbar.panels.signals.SignalDebugPanel',
         'debug_toolbar.panels.logger.LoggingPanel',
     )
@@ -52,8 +51,6 @@ INSTALLED_APPS += (
     'django.contrib.admin',
     'django.contrib.admindocs',
     
-    'django_extensions',
-    
     'about',
     'account',
     'app',
@@ -65,5 +62,5 @@ DISABLED_APPS += (
 ###############################################################################
 ## Template Settings
 TEMPLATE_CONTEXT_PROCESSORS += (
-    'django.core.context_processors.debug',
+    #'django.core.context_processors.debug',
 )
