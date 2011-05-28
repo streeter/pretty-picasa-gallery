@@ -1,13 +1,13 @@
 # Development environment settings
 
+import os
 from conf.default import *
-
 
 PROJECT_NAME = PROJECT_NAME + ' development'
 
 ###############################################################################
 ## Debug Flags
-DEBUG = True
+DEBUG = os.environ.get('SERVER_SOFTWARE', '').startswith('Dev')
 TEMPLATE_DEBUG = DEBUG
 
 ###############################################################################

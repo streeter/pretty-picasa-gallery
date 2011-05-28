@@ -1,3 +1,7 @@
+"""Django Settings."""
+
+__author__ = 'chris@chrisstreeter.com (Chris Streeter)'
+
 import os
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))

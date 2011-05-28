@@ -8,7 +8,7 @@ PROJECT_NAME = 'pretty gallery'
 
 ###############################################################################
 ## Debug Flags
-DEBUG = False
+DEBUG = os.environ.get('SERVER_SOFTWARE', '').startswith('Dev')
 TEMPLATE_DEBUG = DEBUG
 
 ###############################################################################
