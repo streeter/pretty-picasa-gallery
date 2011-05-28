@@ -5,11 +5,11 @@
     <script type="text/javascript" src="/static/js/jquery-1.6.1.min.js"></script>
     <script type="text/javascript" src="/static/js/jquery.lightbox-0.5{% if not debug %}.min{% endif %}.js"></script>
 
-    {% if user.analytics_id %}
+    {% if account.analytics_id %}
     <!-- google analytics -->
     <script type="text/javascript">
       var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', '{{ user.analytics_id }}']);
+      _gaq.push(['_setAccount', '{{ account.analytics_id }}']);
       _gaq.push(['_trackPageview']);
       (function() {
         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
@@ -28,7 +28,7 @@
   <div id="container">
     <ul id="nav">
       <li>
-        <a id="nav-title" href="/">{{ user.site_header }}<span class="lightgray">gallery</span>
+        <a id="nav-title" href="/">{{ account.site_header }}<span class="lightgray">gallery</span>
           {% if album_name %}
             <span id="nav-album-name">&raquo; {{ album_name|lower }}</span>
           {% endif %}
@@ -80,10 +80,10 @@
 </script>
 <!-- end javascript -->
 
-{% if user.merchant_id %}
+{% if account.merchant_id %}
 <!-- google checkout -->
 <script  id='googlecart-script' type='text/javascript'
-    src='https://checkout.google.com/seller/gsc/v2_2/cart.js?mid={{ user.merchant_id }}'
+    src='https://checkout.google.com/seller/gsc/v2_2/cart.js?mid={{ account.merchant_id }}'
     currency='USD'
     integration='jscart-wizard'
     post-cart-to-sandbox='false'
