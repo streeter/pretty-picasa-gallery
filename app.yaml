@@ -1,9 +1,20 @@
 application: chris-gallery
-version: 4
+version: 5
 runtime: python
 api_version: 1
 
+builtins:
+- remote_api: on
+
+inbound_services:
+- warmup
+
 handlers:
+
+- url: /media/admin
+  static_dir: django/contrib/admin/media
+  expiration: '0'
+
 - url: /favicon.ico
   static_files: images/favicon.ico
   upload: images/favicon.ico
@@ -12,18 +23,13 @@ handlers:
   static_files: robots.txt
   upload: robots.txt
 
-- url: /css
-  static_dir: css
-
-- url: /images
-  static_dir: images
-
-- url: /js
-  static_dir: js
+- url: /static/(.*)
+  static_dir: static/\1
+  upload: static/(.*)
 
 - url: /admin/.*
   script: admin.py
   login: admin
 
 - url: /.*
-  script: photography.py
+  script: main.py
