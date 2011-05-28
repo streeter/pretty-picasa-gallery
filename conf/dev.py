@@ -56,7 +56,7 @@ INSTALLED_APPS += (
     
     'about',
     'account',
-    'main',
+    'app',
 )
 
 DISABLED_APPS += (
