@@ -2,8 +2,8 @@
 <head>
     <title>{{ title }}</title>
 
-    <script type="text/javascript" src="/js/jquery-1.4.2.min.js"></script>
-    <script type="text/javascript" src="/js/jquery.lightbox-0.5{% if not debug %}.min{% endif %}.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.lightbox-0.5{% if not debug %}.min{% endif %}.js"></script>
 
     {% if user.analytics_id %}
     <!-- google analytics -->
@@ -20,8 +20,8 @@
     <!-- end google analytics -->
     {% endif %}
 
-    <link href="/css/jquery.lightbox-0.5{% if not debug %}.min{% endif %}.css" rel="stylesheet" type="text/css" />
-    <link href="/css/gallery{% if not debug %}.min{% endif %}.css" rel="stylesheet" type="text/css" />
+    <link href="/static/css/jquery.lightbox-0.5{% if not debug %}.min{% endif %}.css" rel="stylesheet" type="text/css" />
+    <link href="/static/css/gallery{% if not debug %}.min{% endif %}.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
   <!-- container -->
