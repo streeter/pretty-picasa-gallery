@@ -16,8 +16,8 @@ def login_required(function=None):
         def _wrapped_view(request, *args, **kwargs):
             if users.get_current_user():
                 return view_func(request, *args, **kwargs)
-            next = request.GET.get('next', '/')
-            return HttpResponseRedirect(users.create_logout_url(next))
+            next = request.GET.get('next', request.path)
+            return HttpResponseRedirect(users.create_login_url(next))
         return _wrapped_view
     
     if function:
