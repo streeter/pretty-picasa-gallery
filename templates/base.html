@@ -13,15 +13,15 @@
     <div id="container">
         <ul id="nav">
             <li>
-                <a id="nav-title" href="/">
+                <a id="nav-title" href="{% url landing %}">
                     {% firstof account.site_header "your" %}<span class="lightgray">gallery</span>
-                    {% if album_name %}
-                        <span id="nav-album-name">&raquo; {{album_name|lower}}</span>
+                    {% if current_album %}
+                        <span id="nav-album-name">&raquo; {{current_album|lower}}</span>
                     {% endif %}
                 </a>
-                {% if albums %}
+                {% if account.backend.get_featured_albums %}
                     <ul id="nav-list">
-                        {% for album in albums %}
+                        {% for album in account.backend.get_featured_albums %}
                             <li><a href="/{{ album.title }}/">{{album.title|lower}}</a></li>
                         {% endfor %}
                     </ul>
