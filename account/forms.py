@@ -21,4 +21,4 @@ class AccountForm(forms.Form):
     def set_albums(self, albums):
         album_choices = [(a, a) for a in albums]
         self.fields['homepage_album'].choices = album_choices
-        self.fields['featured_albums'].choices = album_choices
+        self.fields['featured_albums'].choices = album_choices + [('all', 'all')]
