@@ -13,12 +13,12 @@ class AccountForm(forms.Form):
     full_size = forms.TypedChoiceField(label="Lightbox size", choices=map(lambda s: (s, s), FULL_SIZES), coerce=lambda s: int(s))
     homepage_size = forms.TypedChoiceField(choices=map(lambda s: (s, s), FULL_SIZES), coerce=lambda s: int(s))
     homepage_album = forms.ChoiceField(choices=[], required=False)
-    featured_albums = forms.MultipleChoiceField(choices=[], required=False)
+    featured_albums = forms.MultipleChoiceField(choices=[], widget=forms.CheckboxSelectMultiple, required=False)
     service_username = forms.CharField(max_length="100", required=False)
     merchant_id = forms.CharField(label="Google Checkout Merchant ID", max_length="25", required=False)
     analytics_id = forms.CharField(label="Google Analytics ID", max_length="25", required=False)
     
     def set_albums(self, albums):
-        album_choices = map(lambda a: (a, a), albums)
-        self.fields['homepage_albums'].choices = album_choices
+        album_choices = [(a, a) for a in albums]
+        self.fields['homepage_album'].choices = album_choices
         self.fields['featured_albums'].choices = album_choices
