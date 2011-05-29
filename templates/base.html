@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>{% firstof title "Gallery" %}</title>
+    <title>{% firstof title account.site_title "Gallery" %}</title>
     
     <script type="text/javascript" src="/static/js/jquery-1.6.1.min.js"></script>
     <script type="text/javascript" src="/static/js/jquery.lightbox-0.5{% if not debug %}.min{% endif %}.js"></script>
@@ -8,13 +8,13 @@
     <link href="/static/css/jquery.lightbox-0.5{% if not debug %}.min{% endif %}.css" rel="stylesheet" type="text/css" />
     <link href="/static/css/gallery{% if not debug %}.min{% endif %}.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body id="{% firstof body_id "gallery" %}">
     <!-- container -->
     <div id="container">
         <ul id="nav">
             <li>
                 <a id="nav-title" href="/">
-                    {% firstof site_header "your" %}<span class="lightgray">gallery</span>
+                    {% firstof account.site_header "your" %}<span class="lightgray">gallery</span>
                     {% if album_name %}
                         <span id="nav-album-name">&raquo; {{album_name|lower}}</span>
                     {% endif %}
@@ -59,11 +59,11 @@
                 $(''+document.location.hash+'-id').click();
             }
             
-            window.setTimeout(function() {
-                $('.message').fadeOut(800, function() {
-                    $(this).remove();
-                });
-            }, 2000);
+            //window.setTimeout(function() {
+            //    $('.message').fadeOut(800, function() {
+            //        $(this).remove();
+            //    });
+            //}, 2000);
         });
     </script>
     
