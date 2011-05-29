@@ -20,15 +20,15 @@
 {% endblock container %}
 
 {% block script-footer %}
-{{block.parent}}
+{{block.super}}
 <script type="text/javascript">
     $(document).ready(function() {
         $('a.lightbox').lightBox({
-            'imageLoading': '/images/lightbox-ico-loading.gif',
-            'imageBtnClose': '/images/lightbox-btn-close.gif',
-            'imageBtnNext': '/images/lightbox-btn-next.gif',
-            'imageBtnPrev': '/images/lightbox-btn-prev.gif',
-            'imageBlank': '/images/lightbox-blank.gif',
+            'imageLoading': '/static/images/lightbox-ico-loading.gif',
+            'imageBtnClose': '/static/images/lightbox-btn-close.gif',
+            'imageBtnNext': '/static/images/lightbox-btn-next.gif',
+            'imageBtnPrev': '/static/images/lightbox-btn-prev.gif',
+            'imageBlank': '/static/images/lightbox-blank.gif',
         });
         
         if (document.location.hash) {
