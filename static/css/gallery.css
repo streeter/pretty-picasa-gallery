@@ -2,6 +2,7 @@ body {
     text-align: center;
     margin: 0;
     padding: 2em;
+    font: 12px Arial, sans-serif;
 }
 
 #container {
@@ -11,8 +12,8 @@ body {
     padding: 0;
 }
 
-/*****************************************************************************
- * Thumbnails
+/* ----------------------------------------------------------------------------
+ * THUMBNAILS
  */
 
 #thumb-container {
@@ -25,8 +26,8 @@ body {
     text-align: center;
 }
 
-/*****************************************************************************
- * Navigation
+/* ----------------------------------------------------------------------------
+ * NAVIGATION
  */
 
 #nav-album-name {
@@ -45,8 +46,7 @@ body {
     display: block;
     color: #999999;
     text-decoration: none;
-    font-family: georgia;
-    font-size: 30px;
+    font: 30px georgia, serif;
     width: 500px;
     outline: none;
     padding: 5px 0;
@@ -88,55 +88,53 @@ body {
     padding-bottom: 10px;
 }
 
-/*****************************************************************************
- * Utilities
+/* ----------------------------------------------------------------------------
+ * MESSAGES
  */
-.clearfix {
+.messages { font-size: 12px; font-weight: bold; text-align: center; margin: 5px 0; }
+.message { position: relative; padding: 10px 10px; background-color: #ffe45c; color: #363636; }
+.message.border { border: 1px solid #fed22f; }
+.message + .message { border-top: 1px solid #fed22f; }
+.message a { color: #363636; text-decoration: underline; }
+.message.error { background-color: #b81900; color: #ffffff; }
+.message.error.border { border: 1px solid #cd0a0a; }
+.message + .message.error { border-top: 1px solid #cd0a0a; }
+.message.error a { color: #ffffff; }
+.messages .close-box { position: absolute; right: 10px; cursor: pointer; }
+
+/* ----------------------------------------------------------------------------
+ * FORMS
+ */
+form .option { color: #999; margin: 5px 0; }
+form .option :checkbox { margin-left: 4em; }
+form ul.errorlist { margin: 0; color: #cd3a3a; font-weight: bold; display: inline-block; padding-left: 10px; }
+form ul.errorlist li { list-style-type: none; display: inline; }
+
+/* ----------------------------------------------------------------------------
+ * ADMIN
+ */
+
+#admin form {
+    border: 1px solid #BBB;
+    border-bottom-left-radius: 6px 6px;
+    border-bottom-right-radius: 6px 6px;
+    border-top-left-radius: 6px 6px;
+    border-top-right-radius: 6px 6px;
+    padding: 0.99em;
+    font-family: Arial, "MS Trebuchet", sans-serif;
+}
+
+
+/* ----------------------------------------------------------------------------
+ * UTILITIES
+ */
+.clear {
     clear: both;
 }
 
-.success,
-.error {
-    border: 1px solid #BBB;
-    border-bottom-left-radius: 6px 6px;
-    border-bottom-right-radius: 6px 6px;
-    border-top-left-radius: 6px 6px;
-    border-top-right-radius: 6px 6px;
-    margin: 1em 0px;
-    padding: 0.99em;
-    text-align: center;
-    color: #999;
-}
 
-.success {
-    border-color: #FCEFA1;
-    background-color: #FBF9EE;
-}
-
-.error {
-    border-color: #CD0A0A;
-    background-color: #FEF1EC;
-}
-
-#admin-form {
-    border: 1px solid #BBB;
-    border-bottom-left-radius: 6px 6px;
-    border-bottom-right-radius: 6px 6px;
-    border-top-left-radius: 6px 6px;
-    border-top-right-radius: 6px 6px;
-    padding: 0.99em;
-}
-.admin-option {
-    color: #999;
-    margin: 5px 0;
-}
-
-.admin-option input[type="checkbox"] {
-    margin-left: 4em
-}
-
-/*****************************************************************************
- * Footer
+/* ----------------------------------------------------------------------------
+ * FOOTER
  */
 
 #footer {
@@ -144,4 +142,8 @@ body {
     color: #999999;
     text-align: right;
     padding: 0.5em 6em 0.5em 0.5em;
+}
+
+#footer a {
+    color: #666;
 }
