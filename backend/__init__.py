@@ -151,6 +151,8 @@ class PicasaBackend(Backend):
         keys = []
         albums = self.get_all_albums()
         for a in albums:
+            keys.append("picasa_album_%s_%sc_%s" % (a['title'], self.account.thumb_size, self.account.homepage_size))
+            keys.append("picasa_album_%s_%su_%s" % (a['title'], self.account.thumb_size, self.account.homepage_size))
             keys.append("picasa_album_%s_%sc_%s" % (a['title'], self.account.thumb_size, self.account.full_size))
             keys.append("picasa_album_%s_%su_%s" % (a['title'], self.account.thumb_size, self.account.full_size))
         albums.append('picasa_albums')
