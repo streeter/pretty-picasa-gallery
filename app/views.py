@@ -14,12 +14,6 @@ def landing(request):
     return {'title': 'Your Gallery'}
 
 
-@login_required
-@render_to('setup.html')
-def setup(request):
-    return {'title': 'Setup Your Gallery'}
-
-
 def login(request):
     user = users.get_current_user()
     
