@@ -1,35 +1,26 @@
-body {
-    text-align: center;
-    margin: 0;
-    padding: 2em;
-    font: 12px Arial, sans-serif;
-}
+/* ----------------------------------------------------------------------------
+ * RESET STYLES
+ */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin: 0;padding: 0;font-size: 100%;vertical-align: baseline;border: 0;outline: 0;background: transparent;}
+ol, ul {list-style: none;}
+blockquote, q {quotes: none;}
+table {border-collapse: collapse;border-spacing: 0;}
 
-#container {
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: left;
-    padding: 0;
-}
+/* ----------------------------------------------------------------------------
+ * BODY / CONTAINER
+ */
+body { text-align: center; margin: 0; padding: 2em; font: 12px Arial, sans-serif; }
+#container { max-width: 700px; margin: 0 auto; text-align: left; padding: 0; }
 
 /* ----------------------------------------------------------------------------
  * THUMBNAILS
  */
-
-#thumb-container {
-    clear: both;
-}
-
-.thumb {
-    padding: 0 1px 1px 0;
-    float: left;
-    text-align: center;
-}
+#thumb-container { clear: both; }
+.thumb { padding: 0 1px 1px 0; float: left; text-align: center; }
 
 /* ----------------------------------------------------------------------------
  * NAVIGATION
  */
-
 #nav-album-name {
     font-size: 0.6em;
     padding-left: 0.5em;
@@ -111,39 +102,17 @@ form ul.errorlist { margin: 0; color: #cd3a3a; font-weight: bold; display: inlin
 form ul.errorlist li { list-style-type: none; display: inline; }
 
 /* ----------------------------------------------------------------------------
+ * FOOTER
+ */
+#footer { font-size: 0.8em; color: #999999; text-align: right; padding: 0.5em 6em 0.5em 0.5em; }
+#footer a { color: #666; }
+
+/* ----------------------------------------------------------------------------
  * ADMIN
  */
-
-#admin form {
-    border: 1px solid #BBB;
-    border-bottom-left-radius: 6px 6px;
-    border-bottom-right-radius: 6px 6px;
-    border-top-left-radius: 6px 6px;
-    border-top-right-radius: 6px 6px;
-    padding: 0.99em;
-    font-family: Arial, "MS Trebuchet", sans-serif;
-}
-
+#admin form { border: 1px solid #BBB; border-bottom-left-radius: 6px 6px; border-bottom-right-radius: 6px 6px; border-top-left-radius: 6px 6px; border-top-right-radius: 6px 6px; padding: 0.99em; }
 
 /* ----------------------------------------------------------------------------
  * UTILITIES
  */
-.clear {
-    clear: both;
-}
-
-
-/* ----------------------------------------------------------------------------
- * FOOTER
- */
-
-#footer {
-    font-size: 0.8em;
-    color: #999999;
-    text-align: right;
-    padding: 0.5em 6em 0.5em 0.5em;
-}
-
-#footer a {
-    color: #666;
-}
+.clear { clear: both; }
