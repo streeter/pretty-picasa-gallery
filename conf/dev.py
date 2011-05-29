@@ -3,8 +3,6 @@
 import os
 from conf.default import *
 
-PROJECT_NAME = PROJECT_NAME + ' development'
-
 ###############################################################################
 ## Debug Flags
 DEBUG = os.environ.get('SERVER_SOFTWARE', '').startswith('Dev')
@@ -50,9 +48,6 @@ FIXTURE_DIRS = (
 INSTALLED_APPS += (
     #'django.contrib.admin',
     #'django.contrib.admindocs',
-    
-    'about',
-    'app',
 )
 
 DISABLED_APPS += (

@@ -4,7 +4,6 @@
 import os
 
 PROJECT_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../')
-PROJECT_NAME = 'pretty gallery'
 
 ###############################################################################
 ## Debug Flags
@@ -174,6 +173,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'account',
+    'app',
 )
 
 DISABLED_APPS = (
@@ -186,16 +186,7 @@ FIXTURE_DIRS = (
 
 ###############################################################################
 ## Cache Settings
-#CACHES = {
-#    'default': {
-#        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-#        'LOCATION': 'gallery'
-#    }
-#}
-
-###############################################################################
-## Google Analytics
-GA_TRACKING_CODE = ''
+CACHE_ENABLED = True
 
 ###############################################################################
 ## Authentication Settings
@@ -203,10 +194,10 @@ AUTHENTICATION_BACKENDS = (
     'account.backends.EmailAuthenticationBackend',
     #'django.contrib.auth.backends.ModelBackend',
 )
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_URL = '/logout/'
-AUTH_REALM = PROJECT_NAME
+LOGIN_URL = '/account/login/'
+LOGIN_REDIRECT_URL = '/account/'
+LOGOUT_URL = '/accoun/logout/'
+AUTH_REALM = 'Gallery'
 AUTH_PROFILE_MODULE = 'account.Account'
 
 
