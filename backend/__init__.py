@@ -44,14 +44,12 @@ class Backend(object):
         return None
     
     def _cache_get(self, key):
-        return None
-        if not settings.MEMCACHE_ENABLED or not key:
+        if not settings.CACHE_ENABLED or not key:
             return None
         return memcache.get(key)
     
     def _cache_set(self, key, value):
-        return True
-        if not settings.MEMCACHE_ENABLED or not key:
+        if not settings.CACHE_ENABLED or not key:
             return True
         return memcache.set(key, value)
     
