@@ -10,6 +10,11 @@ class LazyUser(object):
         if not hasattr(request, '_cached_user'):
             from google.appengine.api import users
             request._cached_user = users.get_current_user()
+            if not request._cached_user:
+                # Try to get the user of the account
+                account = Account.all().get()
+                if account:
+                    request._cached_user = account.user
             log.info('cached_user: %s' % request._cached_user)
         return request._cached_user
 

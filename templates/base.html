@@ -38,8 +38,9 @@
         {% endblock container %}
         
         <div id="footer">
-            {% if user %}
-                <a href="{% url logout %}">logout</a>
+            {% if logout_url %}
+                <a href="{% url account %}">account</a>
+                <a href="{{logout_url}}">logout</a>
             {% else %}
                 <a href="{% url login %}">login</a>
             {% endif %}
