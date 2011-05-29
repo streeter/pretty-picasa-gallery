@@ -104,7 +104,10 @@ class PicasaBackend(Backend):
             thumb_size = "%du" % self.account.thumb_size
         
         # check memcache
-        key = "picasa_album_%s_%s_%s" % (album, thumb_size, self.account.full_size)
+        if not size:
+            size = self.account.full_size
+        
+        key = "picasa_album_%s_%s_%s" % (album, thumb_size, size)
         photos = self._cache_get(key)
         if photos:
             return photos
@@ -121,8 +124,6 @@ class PicasaBackend(Backend):
         logging.info('Got albums %s' % str(albums))
         
         for a in albums:
-            if not size:
-                size = self.account.full_size
             feed = self.ALBUM_FEED_URI % (self.service_username(),
                 a, thumb_size, size)
             logging.info('get_photos_in_album feed is %s' % feed)
@@ -150,8 +151,8 @@ class PicasaBackend(Backend):
         keys = []
         albums = self.get_all_albums()
         for a in albums:
-            keys.append("picasa_album_%s_%sc_%s" % (album['title'], self.account.thumb_size, self.account.full_size))
-            keys.append("picasa_album_%s_%su_%s" % (album['title'], self.account.thumb_size, self.account.full_size))
+            keys.append("picasa_album_%s_%sc_%s" % (a['title'], self.account.thumb_size, self.account.full_size))
+            keys.append("picasa_album_%s_%su_%s" % (a['title'], self.account.thumb_size, self.account.full_size))
         albums.append('picasa_albums')
         memcache.delete_multi(keys)
 
