@@ -52,4 +52,4 @@ and enter your login and password. Once the upload finishes, go to your applicat
 * Picasa albums must be public
 
 
-Current release is version 1.1
+Current release is version 1.2
