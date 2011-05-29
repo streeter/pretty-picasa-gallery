@@ -6,8 +6,8 @@
         before we can display pictures.
     {% else %}
         <div id="thumb-container">
-            {% if homepage_photo %}
-                <a href="/{{ homepage_photo.album }}/#{{ homepage_photo.id }}"><img border="0" src="{{ homepage_photo.src }}" /></a>
+            {% if photo %}
+                <a href="/{{ photo.album }}/#{{ photo.id }}"><img border="0" src="{{ photo.src }}" /></a>
             {% endif %}
         </div>
     {% endif %}

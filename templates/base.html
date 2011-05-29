@@ -22,7 +22,7 @@
                 {% if account.backend %}
                     <ul id="nav-list">
                         {% for album in account.backend.get_featured_albums %}
-                            <li><a href="/{{ album.title }}/">{{album.title|lower}}</a></li>
+                            <li><a href="/{{ album.title }}/" {% if album.title == current_album %} class="selected"{% endif %}>{{album.title|lower}}</a></li>
                         {% endfor %}
                     </ul>
                 {% endif %}
