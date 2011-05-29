@@ -55,7 +55,7 @@ class Backend(object):
     
     def clear_cache(self):
         pass
-    
+
 
 class PicasaBackend(Backend):
     gdata = None
@@ -148,7 +148,7 @@ class PicasaBackend(Backend):
     
     def clear_cache(self):   
         keys = []
-        albums = self.GetAllAlbums()
+        albums = self.get_all_albums()
         for a in albums:
             keys.append("picasa_album_%s_%sc_%s" % (album['title'], self.account.thumb_size, self.account.full_size))
             keys.append("picasa_album_%s_%su_%s" % (album['title'], self.account.thumb_size, self.account.full_size))
@@ -207,7 +207,7 @@ class FlickrBackend(Backend):
             return photos
         
         photos = []
-        sets = self.GetAllAlbums()
+        sets = self.get_all_albums()
         set_id = None
         for s in sets:
             if s['title'] == album:
@@ -235,7 +235,7 @@ class FlickrBackend(Backend):
     
     def clear_cache(self):   
         keys = []
-        albums = self.GetAllAlbums()
+        albums = self.get_all_albums()
         #for a in albums:
         #   keys.append("album_%s_%sc_%s" % (album['title'], self.account.thumb_size, self.account.full_size))
         #   keys.append("album_%s_%su_%s" % (album['title'], self.account.thumb_size, self.account.full_size))
