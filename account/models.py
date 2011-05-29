@@ -4,7 +4,7 @@ from app import (BACKENDS, PICASA_BACKEND, FLICKR_BACKEND,
     FULL_SIZES, FULL_SIZE_DEFAULT, HOMEPAGE_SIZE_DEFAULT, )
 
 
-class UserPrefs(db.Model):
+class Account(db.Model):
     user = db.UserProperty(required=True)
     
     photo_backend = db.StringProperty(choices=BACKENDS, default=PICASA_BACKEND,
