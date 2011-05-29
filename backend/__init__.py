@@ -37,7 +37,7 @@ class Backend(object):
         
         return featured_albums
     
-    def get_photos_in_album(self, album, featured=[]):
+    def get_photos_in_album(self, album):
         return []
     
     def get_single_photo(self, album, photo_id):
@@ -98,15 +98,15 @@ class PicasaBackend(Backend):
         
         return albums
     
-    def get_photos_in_album(self, album, featured=[]):
+    def get_photos_in_album(self, album):
         logging.info('get_photos_in_album called')
-        if self.thumb_cropped:
-            thumb_size = "%dc" % self.thumb_size
+        if self.account.thumb_cropped:
+            thumb_size = "%dc" % self.account.thumb_size
         else:
-            thumb_size = "%du" % self.thumb_size
+            thumb_size = "%du" % self.account.thumb_size
         
         # check memcache
-        key = "picasa_album_%s_%s_%s" % (album, thumb_size, self.imgmax)
+        key = "picasa_album_%s_%s_%s" % (album, thumb_size, self.account.full_size)
         photos = self._cache_get(key)
         if photos:
             return photos
@@ -114,7 +114,7 @@ class PicasaBackend(Backend):
         photos = []
         albums = []
         if album == 'all':
-            all_albums = self.get_featured_albums(featured)
+            all_albums = self.get_featured_albums()
             for a in all_albums:
                 albums.append(a['title'])
         else:
@@ -124,7 +124,7 @@ class PicasaBackend(Backend):
         
         for a in albums:
             feed = self.ALBUM_FEED_URI % (self.service_username(),
-                a, thumb_size, self.imgmax)
+                a, thumb_size, self.account.full_size)
             logging.info('get_photos_in_album feed is %s' % feed)
             try:
                 photos_feed = self.gdata.GetFeed(feed)
@@ -150,8 +150,8 @@ class PicasaBackend(Backend):
         keys = []
         albums = self.GetAllAlbums()
         for a in albums:
-            keys.append("picasa_album_%s_%sc_%s" % (album['title'], self.thumb_size, self.imgmax))
-            keys.append("picasa_album_%s_%su_%s" % (album['title'], self.thumb_size, self.imgmax))
+            keys.append("picasa_album_%s_%sc_%s" % (album['title'], self.account.thumb_size, self.account.full_size))
+            keys.append("picasa_album_%s_%su_%s" % (album['title'], self.account.thumb_size, self.account.full_size))
         albums.append('picasa_albums')
         memcache.delete_multi(keys)
 
@@ -188,14 +188,14 @@ class FlickrBackend(Backend):
         
         return albums
     
-    def get_photos_in_album(self, album, featured=[]):
+    def get_photos_in_album(self, album):
         logging.info('get_photos_in_album called')
         if self.thumb_cropped:
             thumb_size = "Square"
         else:
             thumb_size = "Thumbnail"
         
-        if self.imgmax < 600:
+        if self.account.full_size < 600:
             img_size = "Medium"
         else:
             img_size = "Large"
@@ -237,7 +237,7 @@ class FlickrBackend(Backend):
         keys = []
         albums = self.GetAllAlbums()
         #for a in albums:
-        #   keys.append("album_%s_%sc_%s" % (album['title'], self.thumb_size, self.imgmax))
-        #   keys.append("album_%s_%su_%s" % (album['title'], self.thumb_size, self.imgmax))
+        #   keys.append("album_%s_%sc_%s" % (album['title'], self.account.thumb_size, self.account.full_size))
+        #   keys.append("album_%s_%su_%s" % (album['title'], self.account.thumb_size, self.account.full_size))
         #albums.append('albums')
         #memcache.delete_multi(albums)
