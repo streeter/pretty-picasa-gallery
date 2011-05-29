@@ -18,7 +18,9 @@ class DataSource(object):
     def get_all_albums(self):
         return []
     
-    def get_featured_albums(self, featured=[]):
+    def get_featured_albums(self):
+        featured = self.account.featured_albums
+        
         albums = self.get_all_albums()
         featured_albums = []
         for album in albums:
@@ -42,11 +44,13 @@ class DataSource(object):
         return None
     
     def _cache_get(self, key):
+        return None
         if not settings.MEMCACHE_ENABLED or not key:
             return None
         return memcache.get(key)
     
     def _cache_set(self, key, value):
+        return True
         if not settings.MEMCACHE_ENABLED or not key:
             return True
         return memcache.set(key, value)
