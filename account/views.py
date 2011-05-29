@@ -2,6 +2,7 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib import messages
+from google.appengine.api import users
 from annoying.decorators import render_to
 from account.decorators import login_required
 from account.models import Account
@@ -71,3 +72,22 @@ def account(request):
     
     return {'body_id': 'admin', 'title': 'Configure Your Gallery',
         'current_album': 'account', 'form': form}
+
+
+def login(request):
+    user = users.get_current_user()
+    
+    if not user:
+        next = request.GET.get('next', '/')
+        return HttpResponseRedirect(users.create_login_url(next))
+    else:
+        return HttpResponseRedirect(reverse('landing'))
+
+
+def logout(request):
+    user = users.get_current_user()
+    if user:
+        next = request.GET.get('next', '/')
+        return HttpResponseRedirect(users.create_logout_url(next))
+    else:
+        return HttpResponseRedirect(reverse('landing'))

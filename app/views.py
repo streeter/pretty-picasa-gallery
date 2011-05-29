@@ -2,7 +2,6 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from annoying.decorators import render_to
-from google.appengine.api import users
 from account.decorators import login_required
 from random import choice, shuffle
 
@@ -35,22 +34,3 @@ def album(request, album):
     photos = account.backend.get_photos_in_album(album)
     
     return {'current_album': album, 'photos': photos}
-
-
-def login(request):
-    user = users.get_current_user()
-    
-    if not user:
-        next = request.GET.get('next', '/')
-        return HttpResponseRedirect(users.create_login_url(next))
-    else:
-        return HttpResponseRedirect(reverse('landing'))
-
-
-def logout(request):
-    user = users.get_current_user()
-    if user:
-        next = request.GET.get('next', '/')
-        return HttpResponseRedirect(users.create_logout_url(next))
-    else:
-        return HttpResponseRedirect(reverse('landing'))
