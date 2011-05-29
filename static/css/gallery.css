@@ -10,7 +10,7 @@ table {border-collapse: collapse;border-spacing: 0;}
  * BODY / CONTAINER
  */
 body { text-align: center; margin: 0; padding: 2em; font: 12px Arial, sans-serif; }
-#container { max-width: 700px; margin: 0 auto; text-align: left; padding: 0; }
+#container { margin: 0 auto; text-align: left; padding: 0; }
 
 /* ----------------------------------------------------------------------------
  * THUMBNAILS
