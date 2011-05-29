@@ -7,25 +7,19 @@ import logging
 log = logging.getLogger('gallery.' + __name__)
 
 
-class PhotoBackend(object):
+class DataSource(object):
     
-    user_id = None
-    thumb_size = 72
-    imgmax = 640
-    thumb_cropped = True
+    def __init__(self, account):
+        self.account = account
     
-    def __init__(self, user):
-        self.user_id = user.GetUsername()
-        self.thumb_size = user.thumb_size
-        self.imgmax = user.full_size
-        self.thumb_cropped = user.thumb_cropped
-        
+    def service_username(self):
+        return self.account.service_username
     
-    def GetAllAlbums(self):
+    def get_all_albums(self):
         return []
     
-    def GetFeaturedAlbums(self, featured=[]):
-        albums = self.GetAllAlbums()
+    def get_featured_albums(self, featured=[]):
+        albums = self.get_all_albums()
         featured_albums = []
         for album in albums:
             if album['title'] not in featured:
@@ -41,33 +35,33 @@ class PhotoBackend(object):
         
         return featured_albums
     
-    def GetPhotosInAlbum(self, album, featured=[]):
+    def get_photos_in_album(self, album, featured=[]):
         return []
     
-    def GetSinglePhoto(self, album, photo_id):
+    def get_single_photo(self, album, photo_id):
         return None
     
-    def CacheGet(self, key):
+    def _cache_get(self, key):
         if not settings.MEMCACHE_ENABLED or not key:
             return None
         return memcache.get(key)
     
-    def CacheSet(self, key, value):
+    def _cache_set(self, key, value):
         if not settings.MEMCACHE_ENABLED or not key:
             return True
         return memcache.set(key, value)
     
-    def CacheClear(self):
+    def clear_cache(self):
         pass
     
 
-class PicasaBackend(PhotoBackend):
+class PicasaDataSource(DataSource):
     gdata = None
     
     ALBUM_FEED_URI = '/data/feed/api/user/%s/album/%s?kind=photo&thumbsize=%s&imgmax=%s'
     
-    def __init__(self, user):
-        PhotoBackend.__init__(self, user)
+    def __init__(self, account):
+        super(PicasaDataSource, self).__init__(account)
         
         import gdata.photos.service
         import gdata.alt.appengine
@@ -75,17 +69,18 @@ class PicasaBackend(PhotoBackend):
         self.gdata = gdata.photos.service.PhotosService()
         gdata.alt.appengine.run_on_appengine(self.gdata)
     
-    def GetAllAlbums(self):
-        logging.info('GetAllAlbums called')
+    def get_all_albums(self):
+        logging.info('get_all_albums called')
         
         # check memcache
         key = 'picasa_albums'
-        albums = self.CacheGet(key)
+        albums = self._cache_get(key)
         if albums:
             return albums
         
         albums = []
-        albums_feed = self.gdata.GetUserFeed(user=self.user_id, kind='album')
+        albums_feed = self.gdata.GetUserFeed(user=self.service_username(),
+            kind='album')
         for album in albums_feed.entry:
             albums.append({
                 'id': album.gphoto_id.text,
@@ -95,12 +90,12 @@ class PicasaBackend(PhotoBackend):
         albums.sort(key=lambda a: a['title'])
         
         # set memcache
-        self.CacheSet(key, albums)
+        self._cache_set(key, albums)
         
         return albums
     
-    def GetPhotosInAlbum(self, album, featured=[]):
-        logging.info('GetPhotosInAlbum called')
+    def get_photos_in_album(self, album, featured=[]):
+        logging.info('get_photos_in_album called')
         if self.thumb_cropped:
             thumb_size = "%dc" % self.thumb_size
         else:
@@ -108,14 +103,14 @@ class PicasaBackend(PhotoBackend):
         
         # check memcache
         key = "picasa_album_%s_%s_%s" % (album, thumb_size, self.imgmax)
-        photos = self.CacheGet(key)
+        photos = self._cache_get(key)
         if photos:
             return photos
         
         photos = []
         albums = []
         if album == 'all':
-            all_albums = self.GetFeaturedAlbums(featured)
+            all_albums = self.get_featured_albums(featured)
             for a in all_albums:
                 albums.append(a['title'])
         else:
@@ -124,8 +119,9 @@ class PicasaBackend(PhotoBackend):
         logging.info('Got albums %s' % str(albums))
         
         for a in albums:
-            feed = self.ALBUM_FEED_URI % (self.user_id, a, thumb_size, self.imgmax)
-            logging.info('GetPhotosInAlbum feed is %s' % feed)
+            feed = self.ALBUM_FEED_URI % (self.service_username(),
+                a, thumb_size, self.imgmax)
+            logging.info('get_photos_in_album feed is %s' % feed)
             try:
                 photos_feed = self.gdata.GetFeed(feed)
                 for photo in photos_feed.entry:
@@ -142,11 +138,11 @@ class PicasaBackend(PhotoBackend):
                 pass
             
         # set memcache
-        self.CacheSet(key, photos)
+        self._cache_set(key, photos)
         
         return photos
     
-    def CacheClear(self):   
+    def clear_cache(self):   
         keys = []
         albums = self.GetAllAlbums()
         for a in albums:
@@ -155,22 +151,23 @@ class PicasaBackend(PhotoBackend):
         albums.append('picasa_albums')
         memcache.delete_multi(keys)
 
-class FlickrBackend(PhotoBackend):
+
+class FlickrDataSource(DataSource):
     flickr = None
     
-    def __init__(self, user):
-        PhotoBackend.__init__(self, user)
+    def __init__(self, account):
+        super(FlickrDataSource, self).__init__(account)
         
         flickr.API_KEY = '36fbcb5322bdab1866dff9622f161400'
         
-        self.flickr = flickr.User(self.user_id)
+        self.flickr = flickr.User(self.service_username())
     
-    def GetAllAlbums(self):
-        logging.info('GetAllAlbums called')
+    def get_all_albums(self):
+        logging.info('get_all_albums called')
         
         # check memcache
         key = 'flickr_albums'
-        albums = self.CacheGet(key)
+        albums = self._cache_get(key)
         if albums:
             return albums
         
@@ -183,12 +180,12 @@ class FlickrBackend(PhotoBackend):
             })
         
         # set memcache
-        self.CacheSet(key, albums)
+        self._cache_set(key, albums)
         
         return albums
     
-    def GetPhotosInAlbum(self, album, featured=[]):
-        logging.info('GetPhotosInAlbum called')
+    def get_photos_in_album(self, album, featured=[]):
+        logging.info('get_photos_in_album called')
         if self.thumb_cropped:
             thumb_size = "Square"
         else:
@@ -201,7 +198,7 @@ class FlickrBackend(PhotoBackend):
         
         # check memcache
         key = "album_%s_%s_%s" % (album, thumb_size, img_size)
-        photos = self.CacheGet(key)
+        photos = self._cache_get(key)
         if photos:
             return photos
         
@@ -228,11 +225,11 @@ class FlickrBackend(PhotoBackend):
             photos.append(pic)
         
         # set memcache
-        self.CacheSet(key, photos)
+        self._cache_set(key, photos)
         
         return photos
     
-    def CacheClear(self):   
+    def clear_cache(self):   
         keys = []
         albums = self.GetAllAlbums()
         #for a in albums:
