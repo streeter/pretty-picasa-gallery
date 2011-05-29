@@ -1,0 +1,72 @@
+/* ----------------------------------------------------------------------------
+ * RESET STYLES
+ */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin: 0;padding: 0;font-size: 100%;vertical-align: baseline;border: 0;outline: 0;background: transparent;}
+ol, ul {list-style: none;}
+blockquote, q {quotes: none;}
+table {border-collapse: collapse;border-spacing: 0;}
+
+/* ----------------------------------------------------------------------------
+ * BODY / CONTAINER
+ */
+body { text-align: center; margin: 0; padding: 2em; font: 12px Arial, sans-serif; }
+#container { margin: 0 auto; text-align: left; padding: 0; }
+
+/* ----------------------------------------------------------------------------
+ * THUMBNAILS
+ */
+#thumb-container { clear: both; }
+.thumb { padding: 0 1px 1px 0; float: left; text-align: center; }
+
+/* ----------------------------------------------------------------------------
+ * NAVIGATION
+ */
+#navigation-current { font-size: 0.6em; padding-left: 0.5em; }
+#navigation, #album-navigation { padding: 0; margin: 0; list-style: none; }
+#navigation a { display: block; color: #999999; text-decoration: none; font: 30px georgia, serif; width: 500px; outline: none; padding: 5px 0; }
+#navigation-title .lightgray { color: #CCCCCC; }
+#navigation a:hover { color: #000000; }
+#album-navigation { position: absolute; width: 120px; background-color: #FFFFFF; border: 1px solid #999999; visibility: hidden; }
+#navigation li:hover>ul { visibility: visible; }
+#album-navigation a { padding: 0.2em 0.5em; font-size: 16px; width: 102px; }
+#album-navigation a.selected { color: #555; }
+#lightbox-nav { display: none; }
+.product-attr-name { font-size: 1.2em; padding-bottom: 10px; }
+
+/* ----------------------------------------------------------------------------
+ * MESSAGES
+ */
+.messages { font-size: 12px; font-weight: bold; text-align: center; margin: 5px 0; }
+.message { padding: 10px 10px; background-color: #ffe45c; color: #363636; }
+.message.border { border: 1px solid #fed22f; }
+.message + .message { border-top: 1px solid #fed22f; }
+.message a { color: #363636; text-decoration: underline; }
+.message.error { background-color: #b81900; color: #ffffff; }
+.message.error.border { border: 1px solid #cd0a0a; }
+.message + .message.error { border-top: 1px solid #cd0a0a; }
+.message.error a { color: #ffffff; }
+.messages .close-box { position: absolute; right: 10px; cursor: pointer; }
+
+/* ----------------------------------------------------------------------------
+ * FORMS
+ */
+form .option { color: #999; margin: 5px 0; }
+form .option :checkbox { margin-left: 4em; }
+form ul.errorlist { margin: 0; color: #cd3a3a; font-weight: bold; display: inline-block; padding-left: 10px; }
+form ul.errorlist li { list-style-type: none; display: inline; }
+
+/* ----------------------------------------------------------------------------
+ * FOOTER
+ */
+#footer { font-size: 0.8em; color: #999999; text-align: right; padding: 0.5em 6em 0.5em 0.5em; }
+#footer a { color: #666; }
+
+/* ----------------------------------------------------------------------------
+ * ADMIN
+ */
+#admin form { border: 1px solid #BBB; border-bottom-left-radius: 6px 6px; border-bottom-right-radius: 6px 6px; border-top-left-radius: 6px 6px; border-top-right-radius: 6px 6px; padding: 0.99em; }
+
+/* ----------------------------------------------------------------------------
+ * UTILITIES
+ */
+.clear { clear: both; }

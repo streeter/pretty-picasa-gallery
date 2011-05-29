@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block container %}
+    {% if not account and user %}
+        You need to <a href="{% url account %}">configure your gallery</a>
+        before we can display pictures.
+    {% else %}
+        <div id="thumb-container">
+            {% if photo %}
+                <a href="/{{ photo.album }}/#{{ photo.id }}"><img border="0" src="{{ photo.src }}" /></a>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock container %}

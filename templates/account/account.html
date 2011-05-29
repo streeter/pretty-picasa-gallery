@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block container %}
+
+{% include "messages.html" %}
+
+<form method="post" action="">
+    {% csrf_token %}
+    
+    {% for field in form %}
+        <div class="option">
+            {{field.label_tag}}:
+            {{field}}
+            {{field.errors}}
+        </div>
+    {% endfor %}
+    
+    <i>Don't know your Google Merchant ID?
+        <a href="https://checkout.google.com/sell/settings?section=Profile">Look it up</a>.
+    </i>
+    <div class="admin-option">
+        <input type="submit" name="submit" value="Save" />
+        <!--
+        <input type="submit" name="clear-cache" value="Clear Cache" />
+        -->
+    </div>
+</form>
+{% endblock container %}
