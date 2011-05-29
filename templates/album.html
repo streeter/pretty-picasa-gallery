@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block container %}
+    <div id="thumb-container">
+        {% for photo in photos %}
+            <a photoid="{{ photo.id }}"
+                id="{{ photo.id }}-id"
+                class="thumb lightbox"
+                style="width:{{ user.thumb_size }}; height:{{ user.thumb_size }};"
+                title="{{ photo.name }}"
+                href="{{ photo.url }}"
+                thumb="{{ photo.thumb_url }}"
+                height="{{ photo.height }}"
+                width="{{ photo.width }}">
+              <span><img border="0" title="{{ photo.name }}" alt="{{ photo.name }}" src="{{ photo.thumb_url }}" {%comment%}height="72" width="72"{%endcomment%} /></span>
+            </a>
+        {% endfor %}
+        <div class="clear"></div>
+    </div>
+{% endblock container %}
+
+{% block script-footer %}
+{{block.parent}}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('a.lightbox').lightBox({
+            'imageLoading': '/images/lightbox-ico-loading.gif',
+            'imageBtnClose': '/images/lightbox-btn-close.gif',
+            'imageBtnNext': '/images/lightbox-btn-next.gif',
+            'imageBtnPrev': '/images/lightbox-btn-prev.gif',
+            'imageBlank': '/images/lightbox-blank.gif',
+        });
+        
+        if (document.location.hash) {
+            $(''+document.location.hash+'-id').click();
+        }
+    });
+</script>
+{% endblock script-footer %}
