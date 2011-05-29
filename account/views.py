@@ -32,8 +32,19 @@ def account(request):
         'merchant_id': account.merchant_id,
         'analytics_id': account.analytics_id,
     }
+    backend = account.backend
+    
+    try:
+        albums = backend.get_all_albums()
+    except Exception, e:
+        #raise e
+        albums = []
+    
+    albums = [a['title'] for a in albums]
+    
     if request.method == 'POST':
         form = AccountForm(request.POST, initial=initial)
+        form.set_albums(albums)
         if form.is_valid():
             account.photo_backend = form.cleaned_data['photo_backend']
             account.site_title = form.cleaned_data['site_title']
@@ -56,6 +67,7 @@ def account(request):
             'Look for the error below.')
     else:
         form = AccountForm(initial=initial)
+        form.set_albums(albums)
     
     return {'body_id': 'admin', 'title': 'Configure Your Gallery',
-        'form': form}
+        'current_album': 'account', 'form': form}
