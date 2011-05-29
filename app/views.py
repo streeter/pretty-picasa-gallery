@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from annoying.decorators import render_to
 from google.appengine.api import users
 from account.decorators import login_required
+from random import choice, shuffle
 
 import logging
 log = logging.getLogger('gallery.' + __name__)
@@ -12,20 +13,27 @@ log = logging.getLogger('gallery.' + __name__)
 @render_to('landing.html')
 def landing(request):
     account = request.account
-    if not account:
+    if not account or not account.backend:
         return HttpResponseRedirect(reverse('account'))
     
-    backend = account.backend
+    photos = account.backend.get_photos_in_album(account.homepage_album)
+    shuffle(photos)
+    for photo in photos:
+        if photo['width'] > photo['height']:
+            break
     
-    return {}
+    return {'photo': {'id': photo['id'], 'album': account.homepage_album,
+        'src': photo['url']}}
 
-
-def album(requst, album):
+@render_to('album.html')
+def album(request, album):
     account = request.account
-    if not account:
+    if not account or not account.backend:
         return HttpResponseRedirect(reverse('account'))
     
-    return {}
+    photos = account.backend.get_photos_in_album(album)
+    
+    return {'current_album': album, 'photos': photos}
 
 
 def login(request):
