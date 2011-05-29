@@ -83,7 +83,7 @@ body { text-align: center; margin: 0; padding: 2em; font: 12px Arial, sans-serif
  * MESSAGES
  */
 .messages { font-size: 12px; font-weight: bold; text-align: center; margin: 5px 0; }
-.message { position: relative; padding: 10px 10px; background-color: #ffe45c; color: #363636; }
+.message { padding: 10px 10px; background-color: #ffe45c; color: #363636; }
 .message.border { border: 1px solid #fed22f; }
 .message + .message { border-top: 1px solid #fed22f; }
 .message a { color: #363636; text-decoration: underline; }
