@@ -37,7 +37,7 @@ class Backend(object):
         
         return featured_albums
     
-    def get_photos_in_album(self, album):
+    def get_photos_in_album(self, album, size=None):
         return []
     
     def get_single_photo(self, album, photo_id):
@@ -96,7 +96,7 @@ class PicasaBackend(Backend):
         
         return albums
     
-    def get_photos_in_album(self, album):
+    def get_photos_in_album(self, album, size=None):
         logging.info('get_photos_in_album called')
         if self.account.thumb_cropped:
             thumb_size = "%dc" % self.account.thumb_size
@@ -121,8 +121,10 @@ class PicasaBackend(Backend):
         logging.info('Got albums %s' % str(albums))
         
         for a in albums:
+            if not size:
+                size = self.account.full_size
             feed = self.ALBUM_FEED_URI % (self.service_username(),
-                a, thumb_size, self.account.full_size)
+                a, thumb_size, size)
             logging.info('get_photos_in_album feed is %s' % feed)
             try:
                 photos_feed = self.gdata.GetFeed(feed)
@@ -186,7 +188,7 @@ class FlickrBackend(Backend):
         
         return albums
     
-    def get_photos_in_album(self, album):
+    def get_photos_in_album(self, album, size=None):
         logging.info('get_photos_in_album called')
         if self.thumb_cropped:
             thumb_size = "Square"
