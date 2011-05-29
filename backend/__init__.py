@@ -7,7 +7,7 @@ import logging
 log = logging.getLogger('gallery.' + __name__)
 
 
-class DataSource(object):
+class Backend(object):
     
     def __init__(self, account):
         self.account = account
@@ -59,13 +59,13 @@ class DataSource(object):
         pass
     
 
-class PicasaDataSource(DataSource):
+class PicasaBackend(Backend):
     gdata = None
     
     ALBUM_FEED_URI = '/data/feed/api/user/%s/album/%s?kind=photo&thumbsize=%s&imgmax=%s'
     
     def __init__(self, account):
-        super(PicasaDataSource, self).__init__(account)
+        super(PicasaBackend, self).__init__(account)
         
         import gdata.photos.service
         import gdata.alt.appengine
@@ -156,11 +156,11 @@ class PicasaDataSource(DataSource):
         memcache.delete_multi(keys)
 
 
-class FlickrDataSource(DataSource):
+class FlickrBackend(Backend):
     flickr = None
     
     def __init__(self, account):
-        super(FlickrDataSource, self).__init__(account)
+        super(FlickrBackend, self).__init__(account)
         
         flickr.API_KEY = '36fbcb5322bdab1866dff9622f161400'
         

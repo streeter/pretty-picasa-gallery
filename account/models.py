@@ -47,11 +47,11 @@ class Account(db.Model):
     
     def _backend(self):
         if not hasattr(self, '_cached_backend'):
-            import datasource
+            import backend
             if self.photo_backend == PICASA_BACKEND:
-                self._cached_backend = datasource.PicasaDataSource(self)
+                self._cached_backend = backend.PicasaBackend(self)
             elif self.photo_backend == FLICKR_BACKEND:
-                self._cached_backend = datasource.FlickrDataSource(self)
+                self._cached_backend = backend.FlickrBackend(self)
             else:
                 self._cached_backend = None
         return self._cached_backend
