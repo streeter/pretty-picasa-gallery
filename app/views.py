@@ -11,7 +11,21 @@ log = logging.getLogger('gallery.' + __name__)
 
 @render_to('landing.html')
 def landing(request):
-    return {'title': 'Your Gallery'}
+    account = request.account
+    if not account:
+        return HttpResponseRedirect(reverse('account'))
+    
+    backend = account.backend
+    
+    return {}
+
+
+def album(requst, album):
+    account = request.account
+    if not account:
+        return HttpResponseRedirect(reverse('account'))
+    
+    return {}
 
 
 def login(request):
