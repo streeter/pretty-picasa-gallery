@@ -18,8 +18,11 @@ def landing(request):
     photos = account.backend.get_photos_in_album(account.homepage_album,
         account.homepage_size)
     shuffle(photos)
-    for photo in photos:
-        if photo['width'] > photo['height']:
+    photo = photos[0]
+    for p in photos:
+        if int(p['width']) > int(p['height']):
+            log.info('Choosing photo %s which is [h%s x w%s]' % (p['name'], p['height'], p['width']))
+            photo = p
             break
     
     return {'photo': {'id': photo['id'], 'album': account.homepage_album,
