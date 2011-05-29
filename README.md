@@ -3,7 +3,7 @@ Pretty Picasa Gallery
 
 ## About
 
-This is a python photo gallery designed to run on Google's App Engine. Currently, photos are hosted on Picasa and the gallery reads the album list and displays those on a more professional looking gallery page, complete with Lightbox support.
+This is a python photo gallery designed to run on Google's App Engine. Currently, photos are hosted on Picasa and the gallery reads the album list and displays those on a more professional looking gallery page, complete with Lightbox support. The site is run on Django.
 
 ## Features
 * Picasa photo backend support

@@ -1,29 +1,26 @@
 application: chris-gallery
-version: 4
+version: 5
 runtime: python
 api_version: 1
 
+builtins:
+- remote_api: on
+
+inbound_services:
+- warmup
+
 handlers:
+
 - url: /favicon.ico
-  static_files: images/favicon.ico
-  upload: images/favicon.ico
+  static_files: static/images/favicon.ico
+  upload: static/images/favicon.ico
 
 - url: /robots.txt
-  static_files: robots.txt
-  upload: robots.txt
+  static_files: static/robots.txt
+  upload: static/robots.txt
 
-- url: /css
-  static_dir: css
-
-- url: /images
-  static_dir: images
-
-- url: /js
-  static_dir: js
-
-- url: /admin/.*
-  script: admin.py
-  login: admin
+- url: /static
+  static_dir: static
 
 - url: /.*
-  script: photography.py
+  script: main.py
