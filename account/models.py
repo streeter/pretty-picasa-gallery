@@ -46,12 +46,15 @@ class Account(db.Model):
     service_username = property(_get_service_username, _set_service_username)
     
     def _backend(self):
-        if self.photo_backend == PICASA_BACKEND:
-            return PicasaBackend(self)
-        elif self.photo_backend == FLICKR_BACKEND:
-            return FlickrBackend(self)
-        else:
-            return None
+        if not hasattr(self, '_cached_backend'):
+            import datasource
+            if self.photo_backend == PICASA_BACKEND:
+                self._cached_backend = datasource.PicasaDataSource(self)
+            elif self.photo_backend == FLICKR_BACKEND:
+                self._cached_backend = datasource.FlickrDataSource(self)
+            else:
+                self._cached_backend = None
+        return self._cached_backend
     backend = property(_backend)
     
     def __repr__(self):
