@@ -19,7 +19,7 @@
                         <span id="nav-album-name">&raquo; {{current_album|lower}}</span>
                     {% endif %}
                 </a>
-                {% if account.backend.get_featured_albums %}
+                {% if account.backend %}
                     <ul id="nav-list">
                         {% for album in account.backend.get_featured_albums %}
                             <li><a href="/{{ album.title }}/">{{album.title|lower}}</a></li>
