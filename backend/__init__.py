@@ -132,8 +132,8 @@ class PicasaBackend(Backend):
                 for photo in photos_feed.entry:
                     pic = {
                         'id': photo.gphoto_id.text,
-                        'height': photo.width.text,
-                        'width': photo.height.text,
+                        'height': int(photo.height.text),
+                        'width': int(photo.width.text),
                         'thumb_url': photo.media.thumbnail[0].url,
                         'url': photo.media.content[0].url,
                         'name': photo.title.text,
