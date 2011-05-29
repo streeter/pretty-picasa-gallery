@@ -53,3 +53,9 @@ class Account(db.Model):
         else:
             return None
     backend = property(_backend)
+    
+    def __repr__(self):
+        return unicode(self)
+    
+    def __unicode__(self):
+        return u'Account for %s' % self.user

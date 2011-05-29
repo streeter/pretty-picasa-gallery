@@ -239,51 +239,5 @@ class FlickrBackend(PhotoBackend):
         #memcache.delete_multi(albums)
 
 
-class UserPrefs(db.Model):
-    user = db.UserProperty(required=True)
-    
-    photo_backend = db.IntegerProperty(choices=settings.PHOTO_BACKENDS, default=settings.PHOTO_BACKEND_PICASA, required=True)
-    
-    site_title = db.StringProperty(default='photo')
-    site_header = db.StringProperty(default='photo')
-    
-    thumb_size = db.IntegerProperty(choices=settings.THUMB_SIZES, default=settings.THUMB_SIZE_DEFAULT, required=True)
-    thumb_cropped = db.BooleanProperty(default=settings.THUMB_CROPPED_DEFAULT, required=True)
-    
-    full_size = db.IntegerProperty(choices=settings.FULL_SIZES, default=settings.FULL_SIZE_DEFAULT, required=True)
-    
-    homepage_size = db.IntegerProperty(choices=settings.FULL_SIZES, default=settings.HOMEPAGE_SIZE_DEFAULT, required=True)
-    homepage_album = db.StringProperty()
-    
-    featured_albums = db.StringListProperty()
-    
-    picasa_id = db.StringProperty(default='default')
-    flickr_id = db.StringProperty()
-    
-    merchant_id = db.StringProperty()
-    analytics_id = db.StringProperty()
-    
-    def GetUsername(self):
-        if self.photo_backend == settings.PHOTO_BACKEND_PICASA:
-            return self.picasa_id
-        elif self.photo_backend == settings.PHOTO_BACKEND_FLICKR:
-            return self.flickr_id
-        else:
-            return None
-    
-    def SetUsername(self, user_id):
-        if self.photo_backend == settings.PHOTO_BACKEND_PICASA:
-            self.picasa_id = user_id
-        elif self.photo_backend == settings.PHOTO_BACKEND_FLICKR:
-            self.flickr_id = user_id
-        else:
-            return None
-    
-    def GetPhotoBackend(self):
-        if self.photo_backend == settings.PHOTO_BACKEND_PICASA:
-            return PicasaBackend(self)
-        elif self.photo_backend == settings.PHOTO_BACKEND_FLICKR:
-            return FlickrBackend(self)
-        else:
-            return None
+
 
