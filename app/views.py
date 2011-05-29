@@ -16,7 +16,8 @@ def landing(request):
     if not account or not account.backend:
         return HttpResponseRedirect(reverse('account'))
     
-    photos = account.backend.get_photos_in_album(account.homepage_album)
+    photos = account.backend.get_photos_in_album(account.homepage_album,
+        account.homepage_size)
     shuffle(photos)
     for photo in photos:
         if photo['width'] > photo['height']:
