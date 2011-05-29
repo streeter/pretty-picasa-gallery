@@ -1,9 +1,11 @@
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib import messages
 from annoying.decorators import render_to
 from account.decorators import login_required
 from account.models import Account
+from account.forms import AccountForm
 
 @login_required
 @render_to('account/account.html')
@@ -15,4 +17,45 @@ def account(request):
         account = Account(user=request.user)
         account.put()
     
-    return {'title': 'Setup Your Gallery'}
+    # Setup the form
+    initial = {
+        'photo_backend': account.photo_backend,
+        'site_title': account.site_title,
+        'site_header': account.site_header,
+        'thumb_size': account.thumb_size,
+        'thumb_cropped': account.thumb_cropped,
+        'full_size': account.full_size,
+        'homepage_size': account.homepage_size,
+        'homepage_album': account.homepage_album,
+        'featured_albums': account.featured_albums,
+        'service_username': account.service_username,
+        'merchant_id': account.merchant_id,
+        'analytics_id': account.analytics_id,
+    }
+    if request.method == 'POST':
+        form = AccountForm(request.POST, initial=initial)
+        if form.is_valid():
+            account.photo_backend = form.cleaned_data['photo_backend']
+            account.site_title = form.cleaned_data['site_title']
+            account.site_header = form.cleaned_data['site_header']
+            account.thumb_size = form.cleaned_data['thumb_size']
+            account.thumb_cropped = form.cleaned_data['thumb_cropped']
+            account.full_size = form.cleaned_data['full_size']
+            account.homepage_size = form.cleaned_data['homepage_size']
+            account.homepage_album = form.cleaned_data['homepage_album']
+            account.featured_albums = form.cleaned_data['featured_albums']
+            account.service_username = form.cleaned_data['service_username']
+            account.merchant_id = form.cleaned_data['merchant_id']
+            account.analytics_id = form.cleaned_data['analytics_id']
+            account.put()
+            
+            # Redirect
+            messages.info(request, 'Successfully saved your account settings.')
+            return HttpResponseRedirect(reverse('account'))
+        messages.error(request, 'There was an error with your submission. '
+            'Look for the error below.')
+    else:
+        form = AccountForm(initial=initial)
+    
+    return {'body_id': 'admin', 'title': 'Configure Your Gallery',
+        'form': form}
