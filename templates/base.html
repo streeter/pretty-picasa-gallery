@@ -11,16 +11,16 @@
 <body id="{% firstof body_id "gallery" %}">
     <!-- container -->
     <div id="container">
-        <ul id="nav">
+        <ul id="navigation">
             <li>
-                <a id="nav-title" href="{% url landing %}">
+                <a id="navigation-title" href="{% url landing %}">
                     {% firstof account.site_header "your" %}<span class="lightgray">gallery</span>
                     {% if current_album %}
-                        <span id="nav-album-name">&raquo; {{current_album|lower}}</span>
+                        <span id="navigation-current">&raquo; {{current_album|lower}}</span>
                     {% endif %}
                 </a>
                 {% if account.backend %}
-                    <ul id="nav-list">
+                    <ul id="album-navigation">
                         {% for album in account.backend.get_featured_albums %}
                             <li><a href="/{{ album.title }}/" {% if album.title == current_album %} class="selected"{% endif %}>{{album.title|lower}}</a></li>
                         {% endfor %}

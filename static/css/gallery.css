@@ -21,19 +21,19 @@ body { text-align: center; margin: 0; padding: 2em; font: 12px Arial, sans-serif
 /* ----------------------------------------------------------------------------
  * NAVIGATION
  */
-#nav-album-name {
+#navigation-current {
     font-size: 0.6em;
     padding-left: 0.5em;
 }
 
-#nav,
-#nav-list {
+#navigation,
+#album-navigation {
     padding: 0;
     margin: 0;
     list-style: none;
 }
 
-#nav a {
+#navigation a {
     display: block;
     color: #999999;
     text-decoration: none;
@@ -44,15 +44,15 @@ body { text-align: center; margin: 0; padding: 2em; font: 12px Arial, sans-serif
 }
 
 
-#nav-title .lightgray {
+#navigation-title .lightgray {
     color: #CCCCCC;
 }
 
-#nav a:hover {
+#navigation a:hover {
     color: #000000;
 }
 
-#nav-list {
+#album-navigation {
     position: absolute;
     width: 120px;
     background-color: #FFFFFF;
@@ -60,14 +60,18 @@ body { text-align: center; margin: 0; padding: 2em; font: 12px Arial, sans-serif
     visibility: hidden;
 }
 
-#nav li:hover>ul {
+#navigation li:hover>ul {
     visibility: visible;
 }
 
-#nav-list a {
+#album-navigation a {
     padding: 0.2em 0.5em;
     font-size: 16px;
     width: 102px;
+}
+
+#album-navigation a.selected {
+    color: #555;
 }
 
 #lightbox-nav {
