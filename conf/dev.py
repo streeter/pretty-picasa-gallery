@@ -48,11 +48,10 @@ FIXTURE_DIRS = (
 ###############################################################################
 ## Installed and Enabled Applications
 INSTALLED_APPS += (
-    'django.contrib.admin',
-    'django.contrib.admindocs',
+    #'django.contrib.admin',
+    #'django.contrib.admindocs',
     
     'about',
-    'account',
     'app',
 )
 
